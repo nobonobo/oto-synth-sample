@@ -42,7 +42,7 @@ for player.IsPlaying() {
 
 # harmony tone
 
-'''go
+```go
 sig1 := synth.NewSig(440)
 sig2 := synth.NewSig(493.8833012561241)
 sig3 := synth.NewSig(523.2511306011972)
