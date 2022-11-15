@@ -1,4 +1,4 @@
-module otosample
+module github.com/nobonobo/oto-synth-sample
 
 go 1.19
 

@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"otosample/synth"
+	"github.com/nobonobo/oto-synth-sample/synth"
 )
 
 func main() {
@@ -14,21 +14,19 @@ func main() {
 	}
 	<-ready
 	log.Println("oto ready")
-	sig := synth.NewSig(0)
-	output := &synth.Output{Source: synth.Gain(0.3, sig)}
+	sig1 := synth.NewSig(440)
+	sig2 := synth.NewSig(493.8833012561241)
+	sig3 := synth.NewSig(523.2511306011972)
+	multi := synth.Multiplex(
+		synth.Gain(0.3, sig1),
+		synth.Gain(0.3, sig2),
+		synth.Gain(0.3, sig3),
+	)
+	output := &synth.Output{Source: multi}
 	player := ctx.NewPlayer(output)
 	player.Play()
 	go func() {
 		time.Sleep(time.Second)
-		sig.SetFreq(440)
-		time.Sleep(time.Second)
-		sig.SetFreq(880)
-		time.Sleep(time.Second)
-		sig.SetFreq(440)
-		time.Sleep(time.Second)
-		sig.SetFreq(880)
-		time.Sleep(time.Second)
-		sig.SetFreq(0)
 		output.Stop()
 	}()
 	for player.IsPlaying() {
